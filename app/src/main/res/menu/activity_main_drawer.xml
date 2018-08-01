@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_all_notes"
+            android:icon="@drawable/ic_assignment_black_24dp"
+            android:title="All Notes" />
+        <item
+            android:id="@+id/nav_pinned_notes"
+            android:icon="@drawable/ic_star_black_24dp"
+            android:title="Pinned" />
+        <item
+            android:id="@+id/nav_archived_notes"
+            android:icon="@drawable/ic_archive_black_24dp"
+            android:title="Archived" />
+        <item
+            android:id="@+id/nav_deleted_notes"
+            android:icon="@drawable/ic_delete_black_24dp"
+            android:title="Deleted" />
+    </group>
+
+</menu>
