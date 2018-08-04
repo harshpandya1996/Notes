@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.harshpandya.notes.R
 import com.example.harshpandya.notes.models.Note
 
 class NotesAdapter(aNotesList : ArrayList<Note>) : RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
@@ -29,13 +30,8 @@ class NotesAdapter(aNotesList : ArrayList<Note>) : RecyclerView.Adapter<NotesAda
 
     inner class NotesViewHolder(aView: View) : RecyclerView.ViewHolder(aView) {
 
-        var titles: TextView
-        var content: TextView
-
-        init {
-            titles = aView.findViewById(R.id.title_note_one_row)
-            content = aView.findViewById(R.id.content_note_one_row)
-        }
+        var titles = aView.findViewById<TextView>(R.id.title_note_one_row)
+        var content = aView.findViewById<TextView>(R.id.content_note_one_row)
 
     }
 }

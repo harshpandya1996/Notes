@@ -6,20 +6,21 @@ import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.example.harshpandya.notes.models.Note
 
-@Database(entities = arrayOf(Note::class), version = 1, exportSchema = false)
+@Database(entities = [Note::class], version = 1, exportSchema = false)
 abstract class NoteDatabase: RoomDatabase() {
 
     companion object {
         var DB_INSTANCE: NoteDatabase? = null
+
+        fun getDbInstance(aContext: Context): NoteDatabase? {
+            if(DB_INSTANCE == null)
+            {
+                DB_INSTANCE = Room.databaseBuilder(aContext,NoteDatabase::class.java,"NotesDB").build()
+            }
+            return DB_INSTANCE
+        }
     }
 
     abstract fun getNoteDao(): NoteDao
 
-    fun getDbInstance(aContext: Context): NoteDatabase? {
-        if(DB_INSTANCE == null)
-        {
-            DB_INSTANCE = Room.databaseBuilder(aContext,NoteDatabase::class.java,"NotesDB").build()
-        }
-        return DB_INSTANCE
-    }
 }

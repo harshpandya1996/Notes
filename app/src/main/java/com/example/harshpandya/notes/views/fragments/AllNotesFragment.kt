@@ -17,15 +17,24 @@ class AllNotesFragment : Fragment() {
     private lateinit var mView: View
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mNotesAdapter: NotesAdapter
+    private lateinit var mNotesList: ArrayList<Note>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_all_notes, container, false)
 
+        getDatafromDb()
+
         getLayouts()
 
         return mView
+    }
+
+
+    private fun getDatafromDb() {
+        NotesAsyncTask("retrieve",null,activity.baseContext).execute().get()
+        mNotesList = NotesAsyncTask.ALL_NOTES as ArrayList<Note>
     }
 
     private fun getLayouts() {
@@ -35,11 +44,11 @@ class AllNotesFragment : Fragment() {
 
     private fun setAdapter() {
 
-        mNotesAdapter = NotesAdapter(NotesAsyncTask.ALL_NOTES as ArrayList<Note>)
+        mNotesAdapter = NotesAdapter(mNotesList)
 
         mRecyclerView.apply {
             setHasFixedSize(false)
-            layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL)
+            layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
             adapter = mNotesAdapter
         }
 

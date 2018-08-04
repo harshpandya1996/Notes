@@ -1,16 +1,15 @@
 package com.example.harshpandya.notes.views.fragments
 
 import android.app.Fragment
-import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import com.example.harshpandya.notes.R
-import com.example.harshpandya.notes.database.NoteDatabase
 import com.example.harshpandya.notes.models.Note
+import com.example.harshpandya.notes.utils.NotesAsyncTask
+import java.text.DateFormat
 
 class AddNoteFragment : Fragment() {
 
@@ -35,14 +34,9 @@ class AddNoteFragment : Fragment() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onDetach() {
-        val note = Note()
-        note.titles = mTitle.text.toString()
-        note.note = mContent.text.toString()
-        note.created_date = java.time.LocalDateTime.now().toString()
-        note.modified_date = java.time.LocalDateTime.now().toString()
-        NoteDatabase.DB_INSTANCE!!.getNoteDao().addNote(note)
+        val note = Note(null,mTitle.text.toString(),mContent.text.toString(), DateFormat.getDateTimeInstance().toString(),DateFormat.getDateTimeInstance().toString())
+        NotesAsyncTask("insert",note,activity.baseContext).execute().get()
         super.onDetach()
     }
 
